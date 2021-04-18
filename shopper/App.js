@@ -1,14 +1,19 @@
-import { Layout, TopNavigation } from '@ui-kitten/components'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView } from 'react-native'
+import shopperAxios from './components/axios'
 
-export default () => {
+
+export default function App() {
+  const [time, setTime] = useState('')
+  useEffect(() => {
+    shopperAxios.get("").then(response => {
+      console.log(response.data);
+      setTime(response.data.now)
+    })
+  }, [])
   return (
-    <>
-    <TopNavigation title="Home" />
-    <Layout style={{justifyContent:'center',alignItems:'center',flex:1}}>
-      <Text>Hello</Text>
-    </Layout>
-    </>
+    <SafeAreaView>
+      <Text>{time}</Text>
+    </SafeAreaView>
   )
 }
