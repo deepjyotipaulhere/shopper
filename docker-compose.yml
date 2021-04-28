@@ -1,0 +1,24 @@
+version: "3.8"
+
+services: 
+    postgres:
+        image: postgres:13.1-alpine
+        container_name: database
+        ports: 
+            - "5432:5432"
+        volumes: 
+            - ./shopper.sql:/data/dump.sql
+            - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+        environment: 
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=1234
+    api:
+        build: 
+            context: ./api
+            dockerfile: ./Dockerfile
+        container_name: api
+        ports: 
+            - "5000:5000"
+        depends_on: 
+            - postgres

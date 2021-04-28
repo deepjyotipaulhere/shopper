@@ -5,9 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const conn = new pg.Pool({
-    user: process.env.USER,
-    password: process.env.PASS,
-    database: process.env.DB
+    connectionString: process.env.POSTGRES_URL
 })
 const router = express.Router()
 
@@ -49,7 +47,7 @@ router.post("/addproduct", (req, res) => {
     console.log(req.body);
 
     // TODO Insert pictures in a folder
-    
+
     conn.query(`INSERT INTO product(name,price,date,shop_id,picture) VALUES($1,$2,$3,$4,$5) RETURNING "ID"`, [name, price, date, shopid, picture]).then(response => {
         res.json(response.rows[0])
     }).catch(err => {

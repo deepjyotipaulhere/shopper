@@ -28,9 +28,7 @@ const authenticateJWT = (req, res, next) => {
 };
 
 const conn = new pg.Pool({
-    user: process.env.USER,
-    password: process.env.PASS,
-    database: process.env.DB
+    connectionString: process.env.POSTGRES_URL
 })
 let router = express.Router()
 
