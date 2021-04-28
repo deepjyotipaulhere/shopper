@@ -4,6 +4,7 @@ services:
     postgres:
         image: postgres:13.1-alpine
         container_name: database
+        restart: always
         ports: 
             - "5432:5432"
         volumes: 
@@ -18,6 +19,7 @@ services:
             context: ./api
             dockerfile: ./Dockerfile
         container_name: api
+        restart: always
         ports: 
             - "5000:5000"
         environment: 
